@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compilador Médico Web</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 650px;
+        }
+        h1 { color: #2c3e50; font-size: 24px; margin-bottom: 5px; }
+        .subtitle { color: #7f8c8d; font-size: 14px; margin-bottom: 25px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover { background-color: #2980b9; }
+        .resultado-box {
+            margin-top: 25px;
+            display: none;
+        }
+        .panel {
+            background: #f8f9fa;
+            border-left: 4px solid #34495e;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .panel h3 { margin: 0 0 10px 0; color: #34495e; font-size: 16px; }
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .danger { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👨‍⚕️ Traductor de Recetas Médicas</h1>
+    <div class="subtitle">Proyecto Final - Teoría de la Computación</div>
+    
+    <input type="text" id="recetaInput" placeholder="Ej: AMC 500 mg cada 8 horas">
+    <button onclick="procesarReceta()">Analizar y Traducir</button>
+    
+    <div id="resultado" class="resultado-box">
+        <div class="panel">
+            <h3>🔍 Tokens Generados (Análisis Léxico)</h3>
+            <ul id="tokensLista" style="margin: 0; padding-left: 20px; color: #555;"></ul>
+        </div>
+        
+        <div class="panel">
+            <h3>💊 Resultado de la Traducción</h3>
+            <p><strong>Medicamento Original:</strong> <span id="medOriginal"></span></p>
+            <p><strong>Traducción Genérica (DCI):</strong> <span id="medTraducido"></span></p>
+            <p><strong>Estado:</strong> <span id="medEstado" class="badge"></span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function procesarReceta() {
+    const recetaTexto = document.getElementById("recetaInput").value;
+    if (!recetaTexto.trim()) return alert("Por favor, ingresa una receta.");
+
+    // Enviamos los datos mediante una solicitud POST asíncrona (Fetch) a Flask
+    fetch("/procesar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ receta: recetaTexto })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Mostramos el contenedor de resultados
+        document.getElementById("resultado").style.display = "block";
+        
+        // Renderizamos los tokens analizados
+        const lista = document.getElementById("tokensLista");
+        lista.innerHTML = "";
+        data.tokens.forEach(tk => {
+            const li = document.createElement("li");
+            li.textContent = tk;
+            lista.appendChild(li);
+        });
+        
+        // Renderizamos los datos de la traducción
+        document.getElementById("medOriginal").textContent = data.original;
+        document.getElementById("medTraducido").textContent = data.traducido;
+        
+        const estadoBadge = document.getElementById("medEstado");
+        if (data.reconocido && data.original !== "No detectado") {
+            estadoBadge.textContent = "RECONOCIDO";
+            estadoBadge.className = "badge success";
+        } else {
+            estadoBadge.textContent = "NO RECONOCIDO";
+            estadoBadge.className = "badge danger";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
