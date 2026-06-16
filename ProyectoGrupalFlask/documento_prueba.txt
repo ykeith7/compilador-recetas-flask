@@ -1,0 +1,43 @@
+FACTURA ELECTRÓNICA
+==============================
+EMISOR     : Farmacia San Marcos S.A.C.
+RUC        : 20512345678
+DIRECCIÓN  : Av. Arequipa 1234, Lima
+TELÉFONO   : 998765432
+FECHA      : 15/06/2026
+
+RECEPTOR   : Carlos Ramírez Gutiérrez
+DNI        : 42567890
+DIRECCIÓN  : Calle Los Olivos 456, Miraflores
+
+CÓDIGO     : FAC-2026-00321
+
+----------------------------------------------
+DESCRIPCIÓN          CANTIDAD   PRECIO    IMPORTE
+----------------------------------------------
+Amoxicilina 500mg        2      S/. 12,50   S/. 25,00
+Paracetamol 1g           3      S/. 8,75    S/. 26,25
+Omeprazol 20mg           1      S/. 18,00   S/. 18,00
+Metformina 850mg         2      S/. 22,50   S/. 45,00
+----------------------------------------------
+SUBTOTAL                                  S/. 114,25
+IGV (18%)                                 S/. 20,57
+TOTAL                                     S/. 134,82
+----------------------------------------------
+
+MÉDICO     : Dr. Alejandro Torres Mendoza
+PACIENTE   : María Luisa Pérez Castillo
+DIAGNÓSTICO: Infección respiratoria aguda, Diabetes tipo 2
+
+LOTE       : LT-20260601
+VENCIMIENTO: 01/06/2027
+REGISTRO   : RS-10234-2024
+
+FIRMA      : ______________________
+DOSIS      : Según indicación médica
+
+HOSPITAL CLÍNICA INTERNACIONAL - Lima, Perú
+TRATAMIENTO: Ambulatorio | Duración: 7 días
+
+Representante de ventas: José Antonio Villanueva
+Nro. ticket: 00045 | Fecha de impresión: 15/06/2026
