@@ -1,4 +1,10 @@
-﻿"""
+app = Flask(__name__)
+# ... tus rutas ...
+
+# AGREGA ESTA LÍNEA AL FINAL (Fuera del if __name__)
+wsgi_app = app.wsgi_app
+
+"""
 Analizador Léxico / Sintáctico
 Teoría de Compiladores
 
